@@ -13,4 +13,4 @@ app.use(bodyParser.json());
 app.use("/api/auth", auth);
 app.use("/api/user", user);
 
-app.listen(8080, () => console.log("Running on localhost:8080"));
+app.listen(80, () => console.log("Running on localhost:8080"));
