@@ -11,8 +11,9 @@ router.post("/", (req, res) => {
   const user = new User({ ...req.body.user, _id: _id });
   const { password } = req.body.user;
   user.setPassword(password);
-  user.save().then(userRecord => console.log(userRecord))
-
+  user.save().then(userRecord => {
+    res.json({ user: userRecord.toAuthJSON() });
+  }).catch(err => res.status(400).json({ errors: { global: "Uppp something went wrong!!" } }))
 });
 
 export default router;
