@@ -6,9 +6,8 @@ import mongoose from "mongoose";
 const router = express.Router();
 
 router.post("/", (req, res) => {
-  console.log(req.body.user);
-  const _id = mongoose.Types.ObjectId();
-  const user = new User({ ...req.body.user, _id: _id });
+
+  const user = new User({ ...req.body.user });
   const { password } = req.body.user;
   user.setPassword(password);
   user.save().then(userRecord => {

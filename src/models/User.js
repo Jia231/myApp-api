@@ -2,7 +2,10 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import uniqueValidator from "mongoose-unique-validator";
+import autoIncrement from 'mongoose-auto-increment';
 
+
+autoIncrement.initialize(mongoose.connection);
 const schema = new mongoose.Schema({
   firstname: {
     type: String,
@@ -31,10 +34,6 @@ const schema = new mongoose.Schema({
     type: String,
     required: true
   },
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
-  }
 });
 
 
@@ -49,7 +48,9 @@ schema.methods.setPassword = function setPassword(password) {
 schema.methods.generateJWT = function generateJWT() {
   return jwt.sign(
     {
-      email: this.email
+      email: this.email,
+      name: `${this.firstname} ${this.lastname}`,
+      id: this._id
     },
     "secret"
   );
@@ -58,10 +59,12 @@ schema.methods.toAuthJSON = function toAuthJSON() {
   return {
     email: this.email,
     name: `${this.firstname} ${this.lastname}`,
+    id: this._id,
     token: this.generateJWT()
   };
 };
 
 schema.plugin(uniqueValidator, { message: "This email is already taken" });
+schema.plugin(autoIncrement.plugin, "User");
 
 export default mongoose.model("User", schema);
