@@ -34,4 +34,25 @@ router.post('/userCollection', (req, res) => {
     ).catch(err => res.status(400).json({ errors: { global: err } }))
 })
 
+router.post('/delete/:id', (req, res) => {
+    const { id } = req.params;
+    const { userId } = req.body;
+    console.log(id, userId)
+    Movie.find({ _id: id })
+        .remove().exec()
+        .then(() => {
+            Movie.find({ userId: userId }).then(
+                movies => {
+                    if (movies != null) {
+                        return res.json({ movies: movies })
+                    }
+                    else {
+                        return res.json({})
+                    }
+                }
+            ).catch(err => res.status(400).json({ errors: { global: err } }))
+        })
+        .catch(err => res.status(400).json({ errors: { global: err } }))
+})
+
 export default router;
