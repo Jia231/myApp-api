@@ -52,7 +52,8 @@ schema.methods.generateJWT = function generateJWT() {
       name: `${this.firstname} ${this.lastname}`,
       id: this._id
     },
-    "secret"
+    process.env.JWT_SECRET,
+    { expiresIn: "1s" }
   );
 };
 schema.methods.toAuthJSON = function toAuthJSON() {
