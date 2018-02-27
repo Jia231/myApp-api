@@ -58,12 +58,12 @@ describe('Authentication API', () => {
 
 
 describe('Movie route', () => {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJuYW1lIjoiSmlhIE1pbmcgTGlvdSIsImlkIjowLCJpYXQiOjE1MTk3MDQwMDMsImV4cCI6MTUxOTc5MDQwM30.nz4KbVmNQ1kIP3CRjGPTWB97cGHHB-xUl82d4jpnXKw"
+    const credentials = { token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJuYW1lIjoiSmlhIE1pbmcgTGlvdSIsImlkIjowLCJpYXQiOjE1MTk3MDQwMDMsImV4cCI6MTUxOTc5MDQwM30.nz4KbVmNQ1kIP3CRjGPTWB97cGHHB-xUl82d4jpnXKw" }
     const route = "/api/movie";
     it('should return user object', () => {
         return chai.request(app)
             .post(route)
-            .send(token)
+            .send(credentials)
             .then(res => {
                 console.log(res.body)
             })
