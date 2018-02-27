@@ -53,7 +53,7 @@ schema.methods.generateJWT = function generateJWT() {
       id: this._id
     },
     process.env.JWT_SECRET,
-    { expiresIn: "1s" }
+    { expiresIn: process.env.TOKEN_EXPIRATION }
   );
 };
 schema.methods.toAuthJSON = function toAuthJSON() {
