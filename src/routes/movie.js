@@ -3,10 +3,10 @@ import Movie from '../models/Movie';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
-
 const router = express.Router();
 
 router.post("/", (req, res) => {
+
     const { token } = req.body;
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
@@ -32,7 +32,7 @@ router.post("/", (req, res) => {
 
 router.post('/userCollection', (req, res) => {
     const { token } = req.body;
-    jwt.verify(token, "secret", (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
             res.status(401).json({ errors: { global: "The client credentials are invalid" } })
         } else {
@@ -53,7 +53,7 @@ router.post('/userCollection', (req, res) => {
 
 router.post('/delete/:id', (req, res) => {
     const { token } = req.body;
-    jwt.verify(token, "secret", (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
             res.status(401).json({ errors: { global: "The client credentials are invalid" } })
         }

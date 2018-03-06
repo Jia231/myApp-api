@@ -9,6 +9,8 @@ import movie from "./routes/movie";
 //import refreshToken from "./routes/refreshToken";
 import dotenv from "dotenv";
 import validateToken from './middlewares/validateToken';
+import cookieParser from 'cookie-parser';
+
 
 
 dotenv.config();
@@ -20,13 +22,15 @@ mongoose.connect(process.env.MONGODB_URL, { useMongoClient: true });
 
 
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    //res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", req.headers.origin)
+    res.header('Access-Control-Allow-Credentials', 'true');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 })
 
 app.use(bodyParser.json());
-
+app.use(cookieParser())
 
 
 
