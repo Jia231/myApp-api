@@ -36,7 +36,7 @@ router.post('/userCollection', (req, res) => {
             console.log(err)
             res.status(401).json({ errors: { global: "The client credentials are invalid" } })
         } else {
-            const data = req.body.id;
+            const data = req.body.userId;
             Movie.find({ userId: data }).then(
                 movies => {
                     if (movies != null) {
