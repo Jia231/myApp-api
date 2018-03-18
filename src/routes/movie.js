@@ -6,7 +6,6 @@ import jwt from 'jsonwebtoken';
 const router = express.Router();
 
 router.post("/", (req, res) => {
-
     const { token } = req.body;
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
@@ -34,9 +33,10 @@ router.post('/userCollection', (req, res) => {
     const { token } = req.body;
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
+            console.log(err)
             res.status(401).json({ errors: { global: "The client credentials are invalid" } })
         } else {
-            const data = req.body.userId;
+            const data = req.body.id;
             Movie.find({ userId: data }).then(
                 movies => {
                     if (movies != null) {

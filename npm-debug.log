@@ -1,7 +1,7 @@
 0 info it worked if it ends with ok
 1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'run', 'test' ]
 2 info using npm@3.10.10
-3 info using node@v6.13.0
+3 info using node@v6.13.1
 4 verbose run-script [ 'pretest', 'test', 'posttest' ]
 5 info lifecycle my-app-api@1.0.0~pretest: my-app-api@1.0.0
 6 silly lifecycle my-app-api@1.0.0~pretest: no script for pretest, continuing
@@ -26,7 +26,7 @@
 16 verbose cwd /home/jia/Desktop/my-app-api
 17 error Linux 4.13.0-36-generic
 18 error argv "/usr/bin/node" "/usr/bin/npm" "run" "test"
-19 error node v6.13.0
+19 error node v6.13.1
 20 error npm  v3.10.10
 21 error code ELIFECYCLE
 22 error my-app-api@1.0.0 test: `mocha --compilers js:babel-core/register test/*.js`

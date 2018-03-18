@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import uniqueValidator from "mongoose-unique-validator";
 import autoIncrement from 'mongoose-auto-increment';
+import crypto from 'crypto';
 
 
 autoIncrement.initialize(mongoose.connection);
@@ -34,6 +35,12 @@ const schema = new mongoose.Schema({
     type: String,
     required: true
   },
+  access_token: {
+    type: String
+  },
+  refresh_token: {
+    type: String
+  }
 });
 
 
@@ -56,12 +63,29 @@ schema.methods.generateJWT = function generateJWT() {
     { expiresIn: process.env.TOKEN_EXPIRATION }
   );
 };
+
+schema.methods.generateRefreshToken = function generateRefreshToken() {
+  return `${this._id}.${crypto.randomBytes(40).toString('hex')}`
+};
+
+
 schema.methods.toAuthJSON = function toAuthJSON() {
   return {
     email: this.email,
     name: `${this.firstname} ${this.lastname}`,
     id: this._id,
-    token: this.generateJWT()
+    access_token: this.generateJWT(),
+    refresh_token: this.generateRefreshToken()
+  };
+};
+
+schema.methods.recordToJSON = function recordToJSON() {
+  return {
+    email: this.email,
+    name: `${this.firstname} ${this.lastname}`,
+    id: this._id,
+    access_token: this.access_token,
+    refresh_token: this.refresh_token
   };
 };
 
